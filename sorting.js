@@ -17,25 +17,18 @@ function bubbleSort(array) {
 }
 
 function split(wholeArray) {
-	var mid = Math.floor(wholeArray.length/2), 
-		firstHalf, 
-		secondHalf;
-	firstHalf = wholeArray.slice(0,mid);
-	secondHalf = wholeArray.slice(mid);
-    return [firstHalf, secondHalf];
+	var mid = Math.floor(wholeArray.length/2);
+    return [wholeArray.slice(0,mid), wholeArray.slice(mid)];
 }
 
 function merge(first, second) {
-	var prev,
-		mergeAry=[];
+	var 
+		mergeAry=[],
+		firstdiff,
+		seconddiff;
 	while (first.length>0 && second.length >0){
-		if(mergeAry.length===0){
-			prev =0;
-		}else {
-			prev = mergeAry[mergeAry.length-1];
-		}
-		var firstdiff = first[0]-prev;
-		var seconddiff = second[0]-prev;
+		firstdiff = first[0];
+		seconddiff = second[0];
 		if(firstdiff>seconddiff){//push the smallest first
 			mergeAry.push(second.shift());
 		}else{
@@ -59,9 +52,26 @@ function mergeSort(array){
 	}
 }
 
+function SortRunTime(time,func){
+	var sum = 0, run=time, start, end, timeLapse;
+	
+	while(run>0){
+	    var ary =[];
+	    for(var i = 0; i<600; i++){
+		ary.push(Math.floor(Math.random()*10000));
+	}
+		start = new Date();
+		func(ary);
+		timeLapse = new Date() - start;
+		sum+= timeLapse;
+		run--;
+	}
+	return sum/time;
+}
 
 
 
-
+console.log('BubbleSort Time: '+SortRunTime(1000,bubbleSort));
+console.log('MergeSort Time: '+SortRunTime(1000,mergeSort));
 
 
